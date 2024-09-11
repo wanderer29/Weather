@@ -12,7 +12,7 @@
 
 </header>
 <div>
-    <form action="{{ route('register') }}" method="POST" onsubmit="return checkPasswords()">
+    <form action="{{ route('user.register') }}" method="POST" onsubmit="return checkPasswords()">
         @csrf
 
         <label for="login">Login:</label>
@@ -33,8 +33,8 @@
         function checkPasswords() {
             var password = document.getElementById("password").value;
             var confirmPassword = document.getElementById("confirm_password").value;
-            resetPasswords();
             if (password !== confirmPassword) {
+                resetPasswords();
                 alert("Пароли не совпадают!");
 
                 return false;

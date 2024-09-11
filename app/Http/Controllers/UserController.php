@@ -3,26 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function register()
+    public function register(Request $request) : RedirectResponse
     {
-        $data = request()->validate([
+        $data = $request->validate([
             'login' => 'string',
-            'password' => 'string',
+            'password' => 'string'
         ]);
 
-        $user = new User();
-        $user->login = $data['login'];
-        $user->password = Hash::make($data['password']);
-        $user->save();
+        $user = User::create([
+            'login' => $data['login'],
+            'password' => Hash::make($data['password']),
+        ]);
 
+        Auth::login($user);
 
-
-        return redirect()->route('home')->cookie('user_id', $user->id, 60 * 24 * 3);
+        return redirect()->route('home');
     }
 
     public function login()
