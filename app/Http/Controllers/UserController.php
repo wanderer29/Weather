@@ -12,11 +12,11 @@ use Illuminate\Support\Facades\Cookie;
 
 class UserController extends Controller
 {
-    public function register(Request $request) : RedirectResponse
+    public function register(Request $request): RedirectResponse
     {
         $data = $request->validate([
-            'login' => 'string',
-            'password' => 'string'
+            'login' => 'required|string',
+            'password' => 'required|string',
         ]);
 
         $user = User::create([
@@ -31,9 +31,32 @@ class UserController extends Controller
         return redirect()->route('home')->with('success', 'Registration successful');
     }
 
-    public function login()
+    public function login(Request $request) : RedirectResponse
     {
+        $data = $request->validate([
+            'login' => 'required|string',
+            'password' => 'required|string',
+        ]);
 
+        $user = User::where('login', $data['login'])->first();
+
+        if ($user && Hash::check($data['password'], $user->password)) {
+            session(['user_id' => $user->id]);
+
+            Cookie::queue('user_id', $user->id, 10080); //10080min = 1 week
+
+            return redirect()->route('home')->with('success', 'Login successful');
+        } else {
+            return redirect()->route('home')->with('error', 'Login failed');
+        }
+    }
+
+    public function logout(): RedirectResponse
+    {
+        Session::forget('user_id');
+        Cookie::queue(Cookie::forget('user_id'));
+
+        return redirect()->route('home')->with('success', 'Logout successful');
     }
 
 }

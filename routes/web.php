@@ -9,13 +9,13 @@ Route::get('/', function () {
 
 Route::get('/login', function () {
     return view('authorization_page');
-});
+})->name('login.index');
 
 Route::get('/register', function () {
     return view('registration_page');
-});
+})->name('register.index');
 
 Route::post('/register', [UserController::class, 'register'])->name('user.register');
 
-Route::post('/login', function () {})->name('login');
+Route::post('/login', [UserController::class, 'login'])->name('user.login');
 

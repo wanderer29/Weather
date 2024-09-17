@@ -12,8 +12,9 @@
 
     </header>
     <div>
-        <form action="">
+        <form action="{{ route('user.login') }}" method="POST">
             @csrf
+
             <label for="login">Login:</label>
             <input type="text" id="login" name="login" required>
 
