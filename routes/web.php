@@ -4,8 +4,8 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('home_page');
-})->name('home');
+    return view('welcome_page');
+})->name('welcome');
 
 Route::get('/login', function () {
     return view('authorization_page');

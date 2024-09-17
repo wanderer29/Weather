@@ -8,10 +8,10 @@
     <title>Home page</title>
 </head>
 <body>
-<button onclick="window.location.href='{{ route('register.index') }}'">
+<button onclick="window.location.href='{{ route('user.register') }}'">
     Register
 </button>
-<button onclick="window.location.href='{{ route('login.index') }}'">
+<button onclick="window.location.href='{{ route('login') }}'">
     Login
 </button>
 </body>
