@@ -37,6 +37,17 @@
                         <a href="{{ route('register.index') }}" class="btn btn-link">Register</a>
                         <a href="{{ route('welcome') }}" class="btn btn-secondary">Back to Home</a>
                     </form>
+                    @if (session('error'))
+                        <div class="alert alert-danger m-3">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
+                    @if (session('success'))
+                        <div class="alert alert-success m-3">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

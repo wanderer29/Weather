@@ -11,7 +11,7 @@
 <button onclick="window.location.href='{{ route('user.register') }}'">
     Register
 </button>
-<button onclick="window.location.href='{{ route('login') }}'">
+<button onclick="window.location.href='{{ route('login.index') }}'">
     Login
 </button>
 </body>

@@ -15,8 +15,8 @@ class UserController extends Controller
     public function register(Request $request): RedirectResponse
     {
         $data = $request->validate([
-            'login' => 'required|string',
-            'password' => 'required|string',
+            'login' => 'required|string|unique:users,login',
+            'password' => 'required|string|min:6|confirmed',
         ]);
 
         $user = User::create([
@@ -47,7 +47,7 @@ class UserController extends Controller
 
             return redirect()->route('home')->with('success', 'Login successful');
         } else {
-            return redirect()->route('home')->with('error', 'Login failed');
+            return redirect()->route('login.index')->with('error', 'Invalid login or password');
         }
     }
 

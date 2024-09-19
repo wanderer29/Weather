@@ -35,7 +35,8 @@
 
                     <div class="mb-3">
                         <label class="form-label" for="confirm_password">Confirm password:</label>
-                        <input class="form-control" type="password" id="password_confirmation" name="password_confirmation"
+                        <input class="form-control" type="password" id="password_confirmation"
+                               name="password_confirmation"
                                required>
                     </div>
 
@@ -45,6 +46,21 @@
                     <a href="{{ route('login.index') }}" class="btn btn-link">Login</a>
                     <a href="{{ route('welcome') }}" class="btn btn-secondary">Back to Home</a>
                 </form>
+                @if ($errors->any())
+                    <div class="alert alert-danger m-3">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
             </div>
         </div>
     </div>
