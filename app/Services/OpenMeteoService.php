@@ -15,7 +15,7 @@ class OpenMeteoService
         $this->client = new Client();
     }
 
-    public function getWeatherForecast(float $latitude, float $longitude) : array|null
+    public function getWeatherForecast(float $latitude, float $longitude): array|null
     {
         try {
             $response = $this->client->get($this->baseUrl, [
