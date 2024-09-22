@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WeatherController;
 
 Route::get('/', function () {
     return view('welcome_page');
@@ -18,6 +19,7 @@ Route::get('/register', function () {
 })->name('register.index');
 
 Route::post('/register', [UserController::class, 'register'])->name('user.register');
-
 Route::post('/login', [UserController::class, 'login'])->name('user.login');
+
+Route::get('/weather', [WeatherController::class, 'showWeather'])->name('weather.get');
 

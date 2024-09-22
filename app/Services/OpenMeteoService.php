@@ -27,7 +27,11 @@ class OpenMeteoService
                 ]
             ]);
 
-            return json_decode($response->getBody(), true);
+            if ($response->getStatusCode() === 200) {
+                return json_decode($response->getBody(), true);
+            }
+
+            return null;
         } catch (GuzzleException $e) {
             // Не забыть придумать логику
             return null;
