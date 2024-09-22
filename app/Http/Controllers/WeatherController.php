@@ -36,8 +36,16 @@ class WeatherController extends Controller
         return view('home', ['weatherData' => $weatherData, 'locations' => $locations]);
     }
 
-    public function showHome(): View
+    public function showHome(Request $request): View
     {
-        return view('home');
+        $locations = Location::where('user_id', Auth::id())->get();
+        $weatherData = [];
+
+        foreach ($locations as $location) {
+            $weather = $this->openMeteoService->getWeatherForecast($location->latitude, $location->longitude);
+            $weatherData[$location->name] = $weather;
+        }
+
+        return view('home', ['locations' => $locations, 'weatherData' => $weatherData]);
     }
 }

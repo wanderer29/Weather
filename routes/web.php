@@ -21,5 +21,5 @@ Route::get('/register', function () {
 Route::post('/register', [UserController::class, 'register'])->name('user.register');
 Route::post('/login', [UserController::class, 'login'])->name('user.login');
 
-Route::get('/weather', [WeatherController::class, 'showWeather'])->name('weather.get');
+Route::get('/weather', [WeatherController::class, ' '])->name('weather.get');
 

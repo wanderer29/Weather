@@ -8,11 +8,21 @@
     <title>Home page</title>
 </head>
 <body>
-<button onclick="window.location.href='{{ route('user.register') }}'">
-    Register
-</button>
-<button onclick="window.location.href='{{ route('login.index') }}'">
-    Login
-</button>
+    <h2>Your Locations:</h2>
+    @if(count($locations) > 0)
+        @foreach($locations as $location)
+            <div>
+                <h3>{{ $location->name }}</h3>
+                @if(isset($weatherData[$location->name]))
+                    <p>Max temp: {{ $weatherData[$location->name]['daily']['temperature_2m_max'][0] }}°C</p>
+                    <p>Min temp: {{ $weatherData[$location->name]['daily']['temperature_2m_max'][0] }}°C</p>
+                @else
+                    <p>Weather data unavailable.</p>
+                @endif
+            </div>
+        @endforeach
+    @else
+        <p>No locations added yet.</p>
+    @endif
 </body>
 </html>
