@@ -33,6 +33,11 @@ class WeatherController extends Controller
             }
         }
 
-        return view('weather', ['weatherData' => $weatherData]);
+        return view('home', ['weatherData' => $weatherData, 'locations' => $locations]);
+    }
+
+    public function showHome(): View
+    {
+        return view('home');
     }
 }

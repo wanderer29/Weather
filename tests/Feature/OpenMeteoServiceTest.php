@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Services\OpenMeteoService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
@@ -12,29 +13,25 @@ class OpenMeteoServiceTest extends TestCase
 
     public function testWeatherServiceReturnDataSuccessfully(): void
     {
-        //Moke!
-        Http::fake([
-            'api.open-meteo.com/*' => Http::response([
-                'latitude' => 52,
-                'longitude' => 12.4,
-                'current_weather' => [
-                    'temperature' => 15,
-                    'windspeed' => 1,
-                ]
-            ], 200)
-        ]);
+        $latitude = 49.00;
+        $longitude = 10.2;
 
-        $response = $this->get('/weather?latitude=52&longitude=12.4');
+        $service = new OpenMeteoService();
+        $response = $service->getWeatherForecast($latitude, $longitude);
 
-        $response->assertStatus(200);
+        $this->assertNotNull($response);
+        $this->assertArrayHasKey('daily', $response);
+    }
 
-        $response->assertJsonStructure([
-            'latitude' => 52,
-            'longitude' => 12.4,
-            'current_weather' => [
-                'temperature' => 15,
-                'windspeed' => 1,
-            ]
-        ]);
+    public function testWeatherServiceReturnNull(): void
+    {
+        //Such coordinates should not exist
+        $latitude = 999.99;
+        $longitude = 999.99;
+
+        $service = new OpenMeteoService();
+        $response = $service->getWeatherForecast($latitude, $longitude);
+
+        $this->assertNull($response);
     }
 }

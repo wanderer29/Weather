@@ -8,7 +8,7 @@ Route::get('/', function () {
     return view('welcome_page');
 })->name('welcome');
 
-Route::get('/home', function () {return view('home_page');})->name('home');
+Route::get('/home', [WeatherController::class, 'showHome'])->name('home');
 
 Route::get('/login', function () {
     return view('authorization_page');

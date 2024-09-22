@@ -8,7 +8,7 @@ use GuzzleHttp\Exception\GuzzleException;
 class OpenMeteoService
 {
     protected $client;
-    protected $baseUrl = 'https://api.openmeteo.com';
+    protected $baseUrl = 'https://api.open-meteo.com/v1/forecast';
 
     public function __construct()
     {
