@@ -4,6 +4,8 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WeatherController;
 use \App\Http\Controllers\HomeController;
+use \App\Services\OpenMeteoService;
+
 
 Route::get('/', function () {
     return view('welcome_page');
@@ -22,5 +24,4 @@ Route::get('/register', function () {
 Route::post('/register', [UserController::class, 'register'])->name('user.register');
 Route::post('/login', [UserController::class, 'login'])->name('user.login');
 
-Route::get('/weather', [WeatherController::class, ' '])->name('weather.get');
-
+Route::get('/weather', [OpenMeteoService::class, 'getWeatherForecast'])->name('weather.get');
