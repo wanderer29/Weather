@@ -3,12 +3,13 @@
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WeatherController;
+use \App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
     return view('welcome_page');
 })->name('welcome');
 
-Route::get('/home', [WeatherController::class, 'showHome'])->name('home');
+Route::get('/home', [HomeController::class, 'showHome'])->name('home');
 
 Route::get('/login', function () {
     return view('authorization_page');

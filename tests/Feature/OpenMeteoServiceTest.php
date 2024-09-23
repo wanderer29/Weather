@@ -20,7 +20,7 @@ class OpenMeteoServiceTest extends TestCase
         $response = $service->getWeatherForecast($latitude, $longitude);
 
         $this->assertNotNull($response);
-        $this->assertArrayHasKey('daily', $response);
+        $this->assertArrayHasKey('current', $response);
     }
 
     public function testWeatherServiceReturnNull(): void

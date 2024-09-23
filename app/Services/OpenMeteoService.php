@@ -22,7 +22,7 @@ class OpenMeteoService
                 'query' => [
                     'latitude' => $latitude,
                     'longitude' => $longitude,
-                    'daily' => 'temperature_2m_max,temperature_2m_min',
+                    'current' => '',
                     'timezone' => 'auto',
                 ]
             ]);

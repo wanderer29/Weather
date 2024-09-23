@@ -2,27 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Location;
+use App\Services\OpenMeteoService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
+    protected OpenMeteoService $openMeteoService;
+
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->openMeteoService = new OpenMeteoService();
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
+    public function showHome(Request $request): View
     {
-        return view('home');
+
+        $locations = Location::where('user_id', Auth::id())->get();
+        $weatherData = [];
+
+        foreach ($locations as $location) {
+            $weather = $this->openMeteoService->getWeatherForecast($location->latitude, $location->longitude);
+            $weatherData[$location->name] = $weather;
+        }
+
+        return view('home', ['locations' => $locations, 'weatherData' => $weatherData]);
     }
 }

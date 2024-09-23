@@ -13,9 +13,9 @@ class WeatherController extends Controller
 {
     protected OpenMeteoService $openMeteoService;
 
-    public function __construct(OpenMeteoService $openMeteoService)
+    public function __construct()
     {
-        $this->openMeteoService = $openMeteoService;
+        $this->openMeteoService = new OpenMeteoService();
     }
 
     public function showWeather(Request $request): View
@@ -34,18 +34,5 @@ class WeatherController extends Controller
         }
 
         return view('home', ['weatherData' => $weatherData, 'locations' => $locations]);
-    }
-
-    public function showHome(Request $request): View
-    {
-        $locations = Location::where('user_id', Auth::id())->get();
-        $weatherData = [];
-
-        foreach ($locations as $location) {
-            $weather = $this->openMeteoService->getWeatherForecast($location->latitude, $location->longitude);
-            $weatherData[$location->name] = $weather;
-        }
-
-        return view('home', ['locations' => $locations, 'weatherData' => $weatherData]);
     }
 }
