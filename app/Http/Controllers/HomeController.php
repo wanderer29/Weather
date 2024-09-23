@@ -37,9 +37,9 @@ class HomeController extends Controller
             return redirect()->route('login.index')->with('error', 'You need to login first');
         }
 
-        $userId = session('userId');
+        $userId = session('user_id');
 
-        $locations = Location::where('user_id', Auth::id())->get();
+        $locations = Location::where('user_id', $userId);
         $weatherData = [];
 
         foreach ($locations as $location) {
@@ -47,7 +47,7 @@ class HomeController extends Controller
             $weatherData[$location->name] = $weather;
         }
 
-        return view('home', ['locations' => $locations, 'weatherData' => $weatherData]);
+        return view('home_page', ['locations' => $locations, 'weatherData' => $weatherData]);
     }
 
     public function addLocation(Request $request) : RedirectResponse
