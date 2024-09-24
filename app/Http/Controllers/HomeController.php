@@ -22,13 +22,15 @@ class HomeController extends Controller
 
     public function isAuthenticated(): bool
     {
-        $userIdFromSession = session('user_id');
-
-        \Log::info('Checking authentication via session', [
-            'userIdFromSession' => $userIdFromSession,
-        ]);
-
-        return $userIdFromSession;
+        if (session('user_id') !== null) {
+            $userIdFromSession = session('user_id');
+            \Log::info('Checking authentication via session', [
+                'userIdFromSession' => $userIdFromSession,
+            ]);
+            return $userIdFromSession;
+        } else {
+            return false;
+        }
     }
 
     public function showHome(Request $request): View|RedirectResponse

@@ -10,7 +10,13 @@
     <title>Home page</title>
 </head>
 <body>
+
+
 <div class="container">
+    <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit" class="btn btn-primary">Logout</button>
+    </form>
     <h1>Your locations:</h1>
     <div class="row">
         @forelse($locations as $location)

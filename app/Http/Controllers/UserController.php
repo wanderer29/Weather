@@ -65,7 +65,7 @@ class UserController extends Controller
         Session::forget('user_id');
         Cookie::queue(Cookie::forget('user_id'));
 
-        return redirect()->route('home')->with('success', 'Logout successful');
+        return redirect()->route('welcome')->with('success', 'Logout successful');
     }
 
     public function showWelcome(): RedirectResponse|View
@@ -74,7 +74,7 @@ class UserController extends Controller
             return $this->redirectUserToHome();
         }
 
-        return view('welcome');
+        return view('welcome_page');
     }
 
     public function showLogin(): RedirectResponse|View
