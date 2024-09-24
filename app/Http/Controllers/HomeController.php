@@ -32,14 +32,12 @@ class HomeController extends Controller
 
     public function showHome(Request $request): View|RedirectResponse
     {
-
         if (!$this->isAuthenticated()) {
             return redirect()->route('login.index')->with('error', 'You need to login first');
         }
 
         $userId = session('user_id');
-
-        $locations = Location::where('user_id', $userId);
+        $locations = Location::where('user_id', $userId)->get();
         $weatherData = [];
 
         foreach ($locations as $location) {

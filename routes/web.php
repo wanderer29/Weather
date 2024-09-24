@@ -26,4 +26,4 @@ Route::post('/login', [UserController::class, 'login'])->name('user.login');
 
 Route::get('/weather', [OpenMeteoService::class, 'getWeatherForecast'])->name('weather.get');
 
-Route::post('/location/add', [HomeController::class, 'addLocation'])->name('location.add');
+Route::post('/location', [HomeController::class, 'addLocation'])->name('location.add');

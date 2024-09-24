@@ -22,7 +22,7 @@ class OpenMeteoService
                 'query' => [
                     'latitude' => $latitude,
                     'longitude' => $longitude,
-                    'current' => '',
+                    'current_weather' => 'true',
                     'timezone' => 'auto',
                 ]
             ]);

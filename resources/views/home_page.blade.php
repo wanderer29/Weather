@@ -12,19 +12,6 @@
 <body>
 <div class="container">
     <h1>Your locations:</h1>
-
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if(session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
-
     <div class="row">
         @forelse($locations as $location)
             <div class="col-md-4">
@@ -33,7 +20,7 @@
                         <h5 class="card-title">{{ $location->name }}</h5>
                     </div>
                     <p class="class-text">
-                        Temperature: {{ $weatherData[$location->name]['current'] }} °C
+                        Temperature: {{ $weatherData[$location->name]['current_weather']['temperature'] }} °C
                     </p>
 
                 </div>
