@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Location;
 use App\Services\OpenMeteoService;
+use Illuminate\Foundation\Console\PackageDiscoverCommand;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,7 +49,7 @@ class HomeController extends Controller
         return view('home_page', ['locations' => $locations, 'weatherData' => $weatherData]);
     }
 
-    public function addLocation(Request $request) : RedirectResponse
+    public function addLocation(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
