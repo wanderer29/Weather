@@ -17,6 +17,14 @@
         @csrf
         <button type="submit" class="btn btn-primary">Logout</button>
     </form>
+
+    <form action="{{ route('location.search') }}" method="GET" class="mb-4">
+        <div class="index-group">
+            <input type="text" name="search" class="form-control" placeholder="Search location..."
+                   value="{{request('search')}}">
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </div>
+    </form>
     <h1>Your locations:</h1>
     <div class="row">
         @forelse($locations as $location)
@@ -28,7 +36,19 @@
                     <p class="class-text">
                         Temperature: {{ $weatherData[$location->name]['current_weather']['temperature'] }} °C
                     </p>
-
+                    {{--                    <form action="{{ route('location.delete', $location->id) }}" method="POST"--}}
+                    {{--                          onsubmit="return confirm('Are you sure you want to delete this location?');">--}}
+                    {{--                        @csrf--}}
+                    {{--                        @method('DELETE')--}}
+                    {{--                        <button type="submit" class="btn btn-danger">Delete</button>--}}
+                    {{--                    </form>--}}
+                    {{--                    <form action="{{ route('location.delete', $location->id) }}" method="POST"--}}
+                    {{--                          onsubmit="return confirm('Are you sure you want to delete this location?');">--}}
+                    {{--                        @csrf--}}
+                    {{--                        @method('DELETE')--}}
+                    {{--                        <button type="submit" class="btn btn-danger">Delete</button>--}}
+                    {{--                    </form>--}}
+                    <a href="{{route('location.delete', $location->id)}}" class="btn btn-primary">Delete</a>
                 </div>
             </div>
         @empty

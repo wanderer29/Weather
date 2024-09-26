@@ -71,5 +71,22 @@ class HomeController extends Controller
         return redirect()->route('home')->with('success', 'Location added successfully');
     }
 
+    public function deleteLocation(int $locationId): RedirectResponse
+    {
+        $userId = session('user_id');
+        $location = Location::where('id', $locationId)->where('user_id', $userId)->first();
+
+        if($location) {
+            $location->delete();
+            return redirect()->route('home')->with('success', 'Location deleted successfully');
+        }
+
+        return redirect()->route('home')->with('error', 'Location not found');
+    }
+
+    public function searchLocations(Request $request): View
+    {
+        return \view('home_page');
+    }
 
 }
