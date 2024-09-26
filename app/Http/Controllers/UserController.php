@@ -97,8 +97,19 @@ class UserController extends Controller
 
     public function isAuthenticated(): bool
     {
-        return (bool)session('user_id');
+        if (session('user_id')) {
+            return true;
+        }
+
+        $userIdFromCookie = Cookie::get('user_id');
+        if ($userIdFromCookie) {
+            session(['user_id' => $userIdFromCookie]);
+            return true;
+        }
+
+        return false;
     }
+
 
     public function redirectUserToHome(): RedirectResponse|null
     {
