@@ -20,8 +20,8 @@
 
     <form action="{{ route('location.search') }}" method="GET" class="mb-4">
         <div class="index-group">
-            <input type="text" name="search" class="form-control" placeholder="Search location..."
-                   value="{{request('search')}}">
+            <input type="text" name="query" class="form-control" placeholder="Search location..."
+                   value="{{request('query')}}">
             <button class="btn btn-outline-secondary" type="submit">Search</button>
         </div>
     </form>
