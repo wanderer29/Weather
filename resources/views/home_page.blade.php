@@ -8,54 +8,76 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Home page</title>
+
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+
+    <style>
+        .search-bar {
+            max-width: 400px;
+            margin: 0 auto 30px;
+        }
+
+        .location-card {
+            margin-bottom: 30px;
+        }
+
+        .card-title {
+            font-weight: bold;
+        }
+
+        .add-location {
+            margin-top: 50px;
+        }
+
+        .btn-logout {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+    </style>
 </head>
 <body>
 
 
-<div class="container">
+<div class="container mt-4">
+
+    {{--Login--}}
     <form action="{{ route('logout') }}" method="POST">
         @csrf
-        <button type="submit" class="btn btn-primary">Logout</button>
+        <button type="submit" class="btn btn-danger">Logout</button>
     </form>
 
-    <form action="{{ route('location.search') }}" method="GET" class="mb-4">
-        <div class="index-group">
-            <input type="text" name="query" class="form-control" placeholder="Search location..."
+    {{--Search--}}
+    <div class="search-bar">
+        <form action="{{ route('location.search') }}" method="GET" class="d-flex">
+            <input type="text" name="query" class="form-control me-2" placeholder="Search location..."
                    value="{{request('query')}}">
-            <button class="btn btn-outline-secondary" type="submit">Search</button>
-        </div>
-    </form>
-    <h1>Your locations:</h1>
-    <div class="row">
-        @forelse($locations as $location)
-            <div class="col-md-4">
-                <div class="card-md-4">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $location->name }}</h5>
-                    </div>
-                    <p class="class-text">
-                        Temperature: {{ $weatherData[$location->name]['current_weather']['temperature'] }} °C
-                    </p>
-                    {{--                    <form action="{{ route('location.delete', $location->id) }}" method="POST"--}}
-                    {{--                          onsubmit="return confirm('Are you sure you want to delete this location?');">--}}
-                    {{--                        @csrf--}}
-                    {{--                        @method('DELETE')--}}
-                    {{--                        <button type="submit" class="btn btn-danger">Delete</button>--}}
-                    {{--                    </form>--}}
-                    {{--                    <form action="{{ route('location.delete', $location->id) }}" method="POST"--}}
-                    {{--                          onsubmit="return confirm('Are you sure you want to delete this location?');">--}}
-                    {{--                        @csrf--}}
-                    {{--                        @method('DELETE')--}}
-                    {{--                        <button type="submit" class="btn btn-danger">Delete</button>--}}
-                    {{--                    </form>--}}
-                    <a href="{{route('location.delete', $location->id)}}" class="btn btn-primary">Delete</a>
-                </div>
-            </div>
-        @empty
-            <p>You have no locations added.</p>
-        @endforelse
+            <button class="btn btn-primary" type="submit">Search</button>
+        </form>
     </div>
 
+    {{--Locations--}}
+    <h1 class="text-center mb-4">Your locations:</h1>
+    <div class="row justify-content-center">
+        @forelse($locations as $location)
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card location-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ $location->name }}</h5>
+                        <p class="class-text">
+                            Temperature: {{ $weatherData[$location->name]['current_weather']['temperature'] }} °C
+                        </p>
+                        <a href="{{route('location.delete', $location->id)}}" class="btn btn-danger mt-3">Delete</a>
+                    </div>
+                </div>
+            </div>
+    @empty
+        <p>You have no locations added.</p>
+    @endforelse
+    </div>
+
+    {{--Add Location--}}
     <h2>Add Location</h2>
     <form action="{{ route('location.add') }}" method="POST">
         @csrf

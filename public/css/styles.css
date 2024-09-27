@@ -1,0 +1,22 @@
+.search-bar {
+    max-width: 400px;
+    margin: 0 auto 30px;
+}
+
+.location-card {
+    margin-bottom: 30px;
+}
+
+.card-title {
+    font-weight: bold;
+}
+
+.add-location {
+    margin-top: 50px;
+}
+
+.btn-logout {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
