@@ -75,6 +75,7 @@ class UserController extends Controller
         }
 
         return view('welcome_page');
+
     }
 
     public function showLogin(): RedirectResponse|View

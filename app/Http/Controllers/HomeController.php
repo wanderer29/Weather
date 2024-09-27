@@ -76,7 +76,7 @@ class HomeController extends Controller
         $userId = session('user_id');
         $location = Location::where('id', $locationId)->where('user_id', $userId)->first();
 
-        if($location) {
+        if ($location) {
             $location->delete();
             return redirect()->route('home')->with('success', 'Location deleted successfully');
         }
@@ -84,9 +84,24 @@ class HomeController extends Controller
         return redirect()->route('home')->with('error', 'Location not found');
     }
 
-    public function searchLocations(Request $request): View
+    public function searchLocations(Request $request): View|RedirectResponse
     {
-        return \view('home_page');
+        if (!$this->isAuthenticated()) {
+            return redirect()->route('login.index')->with('error', 'You need to login first');
+        }
+
+        $query = $request->input('query');
+        $userId = session('user_id');
+
+        $locations = Location::where('user_id', $userId)->where('name', 'LIKE', '%' . $query . '%')->get();
+
+        $weatherData = [];
+        foreach ($locations as $location) {
+            $weather = $this->openMeteoService->getWeatherForecast($location->latitude, $location->longitude);
+            $weatherData[$location->name] = $weather;
+        }
+
+        return view('home_page', ['locations' => $locations, 'weatherData' => $weatherData]);
     }
 
 }

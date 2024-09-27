@@ -7,6 +7,9 @@ services:
             dockerfile: docker/php/Dockerfile
         volumes:
             -   './:/var/www/html'
+            - './docker/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini'
+        environment:
+            PHP_IDE_CONFIG: 'serverName=weather'
 
     nginx:
         image: nginx:latest
