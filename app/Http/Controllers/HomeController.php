@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Location;
+use App\Models\User;
 use App\Services\OpenMeteoService;
 use Illuminate\Foundation\Console\PackageDiscoverCommand;
 use Illuminate\Http\RedirectResponse;
@@ -42,6 +43,7 @@ class HomeController extends Controller
         }
 
         $userId = session('user_id');
+        $userLogin = User::where('id', $userId)->value('login');
         $locations = Location::where('user_id', $userId)->get();
         $weatherData = [];
 
@@ -50,7 +52,7 @@ class HomeController extends Controller
             $weatherData[$location->name] = $weather;
         }
 
-        return view('home_page', ['locations' => $locations, 'weatherData' => $weatherData]);
+        return view('home_page', ['userLogin' => $userLogin, 'locations' => $locations, 'weatherData' => $weatherData]);
     }
 
     public function addLocation(Request $request): RedirectResponse
@@ -92,6 +94,7 @@ class HomeController extends Controller
 
         $query = $request->input('query');
         $userId = session('user_id');
+        $userLogin = User::where('id', $userId)->value('login');
 
         $locations = Location::where('user_id', $userId)->where('name', 'LIKE', '%' . $query . '%')->get();
 
@@ -101,7 +104,7 @@ class HomeController extends Controller
             $weatherData[$location->name] = $weather;
         }
 
-        return view('home_page', ['locations' => $locations, 'weatherData' => $weatherData]);
+        return view('home_page', ['userLogin' => $userLogin, 'locations' => $locations, 'weatherData' => $weatherData]);
     }
 
 }

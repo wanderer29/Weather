@@ -30,7 +30,9 @@
         }
 
         .btn-logout {
-            position: absolute;
+            text-align: right;
+            margin-bottom: 20px;
+            margin-top: 15px;
             top: 20px;
             right: 20px;
         }
@@ -43,10 +45,13 @@
 <div class="container mt-4">
 
     {{--Login--}}
-    <form action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit" class="btn btn-danger">Logout</button>
-    </form>
+    <div class="btn-logout">
+        <span class="username">Login: {{ $userLogin }}</span>
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
+    </div>
 
     {{--Search--}}
     <div class="search-bar">
@@ -72,9 +77,9 @@
                     </div>
                 </div>
             </div>
-    @empty
-        <p>You have no locations added.</p>
-    @endforelse
+        @empty
+            <p>You have no locations added.</p>
+        @endforelse
     </div>
 
     {{--Add Location--}}
