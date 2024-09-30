@@ -13,8 +13,6 @@ Route::get('/home', [HomeController::class, 'showHome'])->name('home');
 Route::get('/weather', [OpenMeteoService::class, 'getWeatherForecast'])->name('weather.get');
 Route::get('/home/search', [HomeController::class, 'searchLocations'])->name('location.search');
 
-
-
 Route::post('/register', [UserController::class, 'register'])->name('user.register');
 Route::post('/login', [UserController::class, 'login'])->name('user.login');
 Route::post('/location', [HomeController::class, 'addLocation'])->name('location.add');
