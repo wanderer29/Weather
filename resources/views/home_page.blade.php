@@ -74,6 +74,7 @@
                             Temperature: {{ $weatherData[$location->name]['current_weather']['temperature'] }} °C
                         </p>
                         <a href="{{route('location.delete', $location->id)}}" class="btn btn-danger mt-3">Delete</a>
+                        <a href="{{route('location.details', $location->id)}}" class="btn btn-info mt-3">Details</a>
                     </div>
                 </div>
             </div>

@@ -32,7 +32,21 @@ class WeatherController extends Controller
                 ];
             }
         }
-
         return view('home', ['weatherData' => $weatherData, 'locations' => $locations]);
+    }
+
+    public function showLocationDetails(int $locationId): View
+    {
+        $location = Location::find($locationId);
+        if (!$location) {
+            abort(404);
+        }
+
+        $forecast = $this->openMeteoService->getWeatherForecast($location->latitude, $location->longitude);
+
+        return view('location_details', [
+            'location' => $location,
+            'forecast' => $forecast
+        ]);
     }
 }

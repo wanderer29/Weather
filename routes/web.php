@@ -19,3 +19,4 @@ Route::post('/location', [HomeController::class, 'addLocation'])->name('location
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::get('/location/{location}', [HomeController::class, 'deleteLocation'])->name('location.delete');
+Route::get('/location/{id}/details', [WeatherController::class, 'showLocationDetails'])->name('location.details');
