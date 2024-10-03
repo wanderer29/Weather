@@ -695,9 +695,9 @@ class Installer
      * @param mixed $installDir Specific installation directory, or false
      * @param string $filename Specific filename to save to, or composer.phar
      * @param string $channel Specific version channel to use
+     * @return bool If the installation succeeded
      * @throws Exception If anything other than a RuntimeException is caught
      *
-     * @return bool If the installation succeeded
      */
     public function run($version, $installDir, $filename, $channel)
     {
@@ -714,7 +714,7 @@ class Installer
 
             if ($result && $channel !== 'stable' && !$version && defined('PHP_BINARY')) {
                 $null = (defined('PHP_WINDOWS_VERSION_MAJOR') ? 'NUL' : '/dev/null');
-                @exec(escapeshellarg(PHP_BINARY) .' '.escapeshellarg($this->target).' self-update --'.$channel.' --set-channel-only -q > '.$null.' 2> '.$null, $output);
+                @exec(escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg($this->target) . ' self-update --' . $channel . ' --set-channel-only -q > ' . $null . ' 2> ' . $null, $output);
             }
         } catch (Exception $e) {
             $result = false;
@@ -742,29 +742,21 @@ class Installer
      */
     protected function initTargets($installDir, $filename)
     {
-        $this->displayPath = ($installDir ? rtrim($installDir, '/').'/' : '').$filename;
+        $this->displayPath = ($installDir ? rtrim($installDir, '/') . '/' : '') . $filename;
         $installDir = $installDir ? realpath($installDir) : getcwd();
 
         if (!is_writeable($installDir)) {
-            throw new RuntimeException('The installation directory "'.$installDir.'" is not writable');
+            throw new RuntimeException('The installation directory "' . $installDir . '" is not writable');
         }
 
-        $this->target = $installDir.DIRECTORY_SEPARATOR.$filename;
-        $this->tmpFile = $installDir.DIRECTORY_SEPARATOR.basename($this->target, '.phar').'-temp.phar';
+        $this->target = $installDir . DIRECTORY_SEPARATOR . $filename;
+        $this->tmpFile = $installDir . DIRECTORY_SEPARATOR . basename($this->target, '.phar') . '-temp.phar';
 
         $uriScheme = $this->disableTls ? 'http' : 'https';
-        $this->baseUrl = $uriScheme.'://getcomposer.org';
+        $this->baseUrl = $uriScheme . '://getcomposer.org';
     }
-
+}
     /**
      * A wrapper around methods to check tls and write public keys
      * @throws RuntimeException If SHA384 is not supported
      */
-    protected function initTls()
-    {
-        if ($this->disableTls) {
-            return;
-        }
-
-        if (!in_array('sha384', array_map('strtolower', openssl_get_md_methods()))) {
-            throw new RuntimeException('

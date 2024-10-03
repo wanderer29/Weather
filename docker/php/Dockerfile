@@ -7,4 +7,12 @@ RUN pecl install xdebug-3.3.2 && docker-php-ext-enable xdebug
 
 COPY docker/php/conf.d/* $PHP_INI_DIR/conf.d/
 
+COPY . /var/www/html
+
+#RUN groupadd -g 1000 t \
+#    && useradd -u 1000 -g t -m t
+
+RUN mkdir -p /var/www/html/storage
+#&& chown -R t:t /var/www/html/storage
+
 CMD ["php-fpm"]

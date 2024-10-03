@@ -5,11 +5,13 @@ services:
 #        image: php:8.1-fpm
         build:
             dockerfile: docker/php/Dockerfile
+        user: "1000:1000"
         volumes:
             -   './:/var/www/html'
             - './docker/php/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini'
         environment:
             PHP_IDE_CONFIG: 'serverName=weather'
+        command: ["sh", "-c", "php-fpm"]
 
     nginx:
         image: nginx:latest

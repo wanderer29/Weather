@@ -43,7 +43,7 @@
                     <button type="submit" class="btn btn-primary">
                         Register
                     </button>
-                    <a href="{{ route('login.index') }}" class="btn btn-link">Login</a>
+                    <a href="{{ route('login') }}" class="btn btn-link">Login</a>
                     <a href="{{ route('welcome') }}" class="btn btn-secondary">Back to Home</a>
                 </form>
                 @if ($errors->any())

@@ -21,42 +21,33 @@ class HomeController extends Controller
         $this->openMeteoService = new OpenMeteoService();
     }
 
-    public function isAuthenticated(): bool
-    {
-        if (session('user_id')) {
-            return true;
-        }
-
-        $userIdFromCookie = Cookie::get('user_id');
-        if ($userIdFromCookie) {
-            session(['user_id' => $userIdFromCookie]);
-            return true;
-        }
-
-        return false;
-    }
-
     public function showHome(Request $request): View|RedirectResponse
     {
-        if (!$this->isAuthenticated()) {
-            return redirect()->route('login.index')->with('error', 'You need to login first');
-        }
 
-        $userId = session('user_id');
-        $userLogin = User::where('id', $userId)->value('login');
-        $locations = Location::where('user_id', $userId)->get();
-        $weatherData = [];
-
-        foreach ($locations as $location) {
-            $weather = $this->openMeteoService->getWeatherForecast($location->latitude, $location->longitude);
-            $weatherData[$location->name] = $weather;
-        }
-
-        return view('home_page', ['userLogin' => $userLogin, 'locations' => $locations, 'weatherData' => $weatherData]);
+//        $user = Auth::user();
+//        $locations = Location::where('user_id', $user->id)->get();
+//        $weatherData = [];
+//
+//        foreach ($locations as $location) {
+//            $weather = $this->openMeteoService->getWeatherForecast($location->latitude, $location->longitude);
+//            $weatherData[$location->name] = $weather;
+//        }
+//
+//        return view('home_page', ['userLogin' => $user->login, 'locations' => $locations, 'weatherData' => $weatherData]);
+//        dd($request->user());
+        $user1 = Auth::user();
+        $userName = $user1->id;
+        $tmp = Auth::check();
+        return view('home_page');
     }
+
 
     public function addLocation(Request $request): RedirectResponse
     {
+        if (!Auth::check()) {
+            return redirect()->route('login.index')->with('error', 'You need to login first');
+        }
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'latitude' => 'required|numeric',
@@ -75,8 +66,12 @@ class HomeController extends Controller
 
     public function deleteLocation(int $locationId): RedirectResponse
     {
-        $userId = session('user_id');
-        $location = Location::where('id', $locationId)->where('user_id', $userId)->first();
+        if (!Auth::check()) {
+            return redirect()->route('login.index')->with('error', 'You need to login first');
+        }
+
+        $user = Auth::user();
+        $location = Location::where('id', $locationId)->where('user_id', $user->id)->first();
 
         if ($location) {
             $location->delete();
@@ -93,10 +88,9 @@ class HomeController extends Controller
         }
 
         $query = $request->input('query');
-        $userId = session('user_id');
-        $userLogin = User::where('id', $userId)->value('login');
+        $user = Auth::user();
 
-        $locations = Location::where('user_id', $userId)->where('name', 'LIKE', '%' . $query . '%')->get();
+        $locations = Location::where('user_id', $user->id)->where('name', 'LIKE', '%' . $query . '%')->get();
 
         $weatherData = [];
         foreach ($locations as $location) {
@@ -104,7 +98,7 @@ class HomeController extends Controller
             $weatherData[$location->name] = $weather;
         }
 
-        return view('home_page', ['userLogin' => $userLogin, 'locations' => $locations, 'weatherData' => $weatherData]);
+        return view('home_page', ['userLogin' => $user->login, 'locations' => $locations, 'weatherData' => $weatherData]);
     }
 
 }

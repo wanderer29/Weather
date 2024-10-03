@@ -27,6 +27,9 @@ return [
     */
 
     'env' => env('APP_ENV', 'production'),
+//    'view' => [
+//      'compiled' => '/var/www/html/storage/framework/views',
+//    ],
 
     /*
     |--------------------------------------------------------------------------
