@@ -33,7 +33,7 @@
     <h1 class="text-center mb-4">Weather Details for {{ $location->name }}</h1>
     <div class="text-center mb-4">
         <h3>Current Temperature: {{ $forecast['current_weather']['temperature'] }} °C</h3>
-        <h3>Wind Speed: {{ $forecast['current_weather']['windspeed'] }} km/h</h3>
+        <h3>Wind Speed: {{ number_format($forecast['current_weather']['windspeed'] / 3.6, 1) }} m/s</h3>
     </div>
 
     <h2 class="text-center mb-4">7-Day Forecast:</h2>
@@ -45,7 +45,7 @@
                         <h5 class="card-title">{{ $date }}</h5>
                         <p class="class-text">Min Temperature: {{ $forecast['daily']['temperature_2m_min'][$index] }} °C</p>
                         <p class="class-text">Max Temperature: {{ $forecast['daily']['temperature_2m_max'][$index] }} °C</p>
-                        <p class="class-text">Max Wind Speed: {{ $forecast['daily']['wind_speed_10m_max'][$index] }} km/h</p>
+                        <p class="class-text">Max Wind Speed: {{ number_format($forecast['daily']['wind_speed_10m_max'][$index] / 3.6, 1) }} m/s</p>
                         <p class="class-text">Precipitation: {{ $forecast['daily']['precipitation_sum'][$index] }} mm</p>
                     </div>
                 </div>
