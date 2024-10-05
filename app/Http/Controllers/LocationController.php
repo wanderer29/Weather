@@ -31,7 +31,7 @@ class LocationController extends Controller
     public function deleteLocation(int $locationId): RedirectResponse
     {
         $user = Auth::user();
-        $location = $this->findLocation($locationId, $user->id);
+        $location = $this->getLocation($locationId);
 
         if ($location) {
             $location->delete();
@@ -65,12 +65,22 @@ class LocationController extends Controller
         ]);
     }
 
-    private function findLocation(int $locationId, int $userId): Location
+    public function getLocation(int $locationId): Location
     {
-        return Location::where('id', $locationId)->where('user_id', $userId)->first();
+        return Location::where('id', $locationId)->where('user_id', Auth::id())->first();
     }
 
-    private function getWeatherForecastForLocations(Collection $locations) : array
+    public function getUserLocations(): Collection
+    {
+        return Location::where('user_id', Auth::id())->get();
+    }
+
+    public function getWeatherForecastForLocation(Location $location): array
+    {
+        return $this->openMeteoService->getWeatherForecast($location->latitude, $location->longitude);
+    }
+
+    public function getWeatherForecastForLocations(Collection $locations): array
     {
         $weatherData = [];
 
