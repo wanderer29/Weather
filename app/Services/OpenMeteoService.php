@@ -4,6 +4,7 @@ namespace App\Services;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Facades\Log;
 
 class OpenMeteoService
 {
@@ -34,7 +35,7 @@ class OpenMeteoService
 
             return null;
         } catch (GuzzleException $e) {
-            // Не забыть придумать логику
+            Log::error('Error fetching weather data: ' . $e->getMessage());
             return null;
         }
     }
