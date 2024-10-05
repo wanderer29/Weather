@@ -10,16 +10,14 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\View\View;
-
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\LoginRequest;
 
 class UserController extends Controller
 {
-    public function register(Request $request): RedirectResponse
+    public function register(RegisterRequest $request): RedirectResponse
     {
-        $data = $request->validate([
-            'login' => 'required|string|unique:users,login',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
+        $data = $request->validated();
 
         $user = User::create([
             'login' => $data['login'],
@@ -33,12 +31,9 @@ class UserController extends Controller
         return redirect()->route('home')->with('success', 'Registration successful');
     }
 
-    public function login(Request $request): RedirectResponse
+    public function login(LoginRequest $request): RedirectResponse
     {
-        $data = $request->validate([
-            'login' => 'required|string',
-            'password' => 'required|string',
-        ]);
+        $data = $request->validated();
 
         $user = User::where('login', $data['login'])->first();
 
