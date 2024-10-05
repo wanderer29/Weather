@@ -18,7 +18,7 @@ Route::get('/home/search', [HomeController::class, 'searchLocations'])->name('lo
 Route::post('/register', [UserController::class, 'register'])->name('user.register');
 Route::post('/login', [UserController::class, 'login'])->name('user.login');
 
-Route::get('/home', [HomeController::class, 'showHome'])->name('home');
+Route::get('/home', [HomeController::class, 'showHome'])->name('home')  ;
 Route::post('/location', [HomeController::class, 'addLocation'])->name('location.add');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 

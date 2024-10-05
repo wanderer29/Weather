@@ -49,7 +49,7 @@ class HomeController extends Controller
         ]);
 
         Location::create([
-            'user_id' => session('user_id'),
+            'user_id' => Auth::id(),
             'name' => $validated['name'],
             'latitude' => $validated['latitude'],
             'longitude' => $validated['longitude'],
@@ -77,9 +77,6 @@ class HomeController extends Controller
 
     public function searchLocations(Request $request): View|RedirectResponse
     {
-        if (!$this->isAuthenticated()) {
-            return redirect()->route('login.index')->with('error', 'You need to login first');
-        }
 
         $query = $request->input('query');
         $user = Auth::user();
