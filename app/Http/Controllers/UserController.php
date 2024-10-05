@@ -4,12 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Cookie;
-use Illuminate\View\View;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 
@@ -18,14 +14,9 @@ class UserController extends Controller
     public function register(RegisterRequest $request): RedirectResponse
     {
         $data = $request->validated();
-
-        $user = User::create([
-            'login' => $data['login'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $user = $this->createUser($data);
 
         Auth::login($user);
-        $tmp = Auth::check();
         $request->session()->regenerate();
 
         return redirect()->route('home')->with('success', 'Registration successful');
@@ -34,10 +25,10 @@ class UserController extends Controller
     public function login(LoginRequest $request): RedirectResponse
     {
         $data = $request->validated();
+        $user = $this->findUser($data);
 
-        $user = User::where('login', $data['login'])->first();
-
-        if(Auth::attempt($data)) {
+        //If Authorization success
+        if (Auth::attempt($data)) {
             $request->session()->regenerate();
             return redirect()->route('home')->with('success', 'Login successful');
         }
@@ -54,19 +45,17 @@ class UserController extends Controller
         return redirect()->route('login')->with('success', 'Logout successful');
     }
 
-    public function showWelcome(): RedirectResponse|View
+    private function createUser(array $data): User
     {
-        return view('welcome_page');
+        return User::create([
+            'login' => $data['login'],
+            'password' => Hash::make($data['password']),
+        ]);
     }
 
-    public function showLogin(): RedirectResponse|View
+    private function findUser(array $data): User
     {
-        return view('authorization_page');
-    }
-
-    public function showRegistration(): RedirectResponse|View
-    {
-        return view('registration_page');
+        return User::where('login', $data['login'])->first();
     }
 
 }

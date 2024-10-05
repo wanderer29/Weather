@@ -7,11 +7,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WeatherController;
 use \App\Http\Controllers\HomeController;
 use \App\Services\OpenMeteoService;
+use App\Http\Controllers\PageController;
 
 Route::middleware('guest')->group(function () {
-    Route::get('/', [UserController::class, 'showWelcome'])->name('welcome');
-    Route::get('/login', [UserController::class, 'showLogin'])->name('login');
-    Route::get('/register', [UserController::class, 'showRegistration'])->name('register.index');
+    Route::get('/', [PageController::class, 'showWelcome'])->name('welcome');
+    Route::get('/login', [PageController::class, 'showLogin'])->name('login');
+    Route::get('/register', [PageController::class, 'showRegistration'])->name('register.index');
 
     Route::post('/register', [UserController::class, 'register'])->name('user.register');
     Route::post('/login', [UserController::class, 'login'])->name('user.login');
