@@ -1,13 +1,12 @@
 <?php
 
 use App\Http\Controllers\UserController;
-use App\Http\Middleware\AuthMiddleware;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WeatherController;
 use \App\Http\Controllers\HomeController;
 use \App\Services\OpenMeteoService;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\LocationController;
 
 Route::middleware('guest')->group(function () {
     Route::get('/', [PageController::class, 'showWelcome'])->name('welcome');
@@ -20,12 +19,12 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', [HomeController::class, 'showHome'])->name('home')  ;
-    Route::get('/home/search', [HomeController::class, 'searchLocations'])->name('location.search');
+    Route::get('/home/search', [LocationController::class, 'searchLocations'])->name('location.search');
     Route::get('/weather', [OpenMeteoService::class, 'getWeatherForecast'])->name('weather.get');
 
-    Route::post('/location', [HomeController::class, 'addLocation'])->name('location.add');
+    Route::post('/location', [LocationController::class, 'addLocation'])->name('location.add');
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
-    Route::get('/location/{location}', [HomeController::class, 'deleteLocation'])->name('location.delete');
-    Route::get('/location/{id}/details', [WeatherController::class, 'showLocationDetails'])->name('location.details');
+    Route::get('/location/{location}', [LocationController::class, 'deleteLocation'])->name('location.delete');
+    Route::get('/location/{id}/details', [LocationController::class, 'showLocationDetails'])->name('location.details');
 });
