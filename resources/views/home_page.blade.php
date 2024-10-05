@@ -46,7 +46,7 @@
 
     {{--Login--}}
     <div class="btn-logout">
-{{--        <span class="username">Login: {{ $userLogin }}</span>--}}
+        <span class="username">Login: {{ $userLogin }}</span>
         <form action="{{ route('logout') }}" method="POST">
             @csrf
             <button type="submit" class="btn btn-danger">Logout</button>
@@ -56,7 +56,6 @@
     {{--Search--}}
     <div class="search-bar">
         <form action="{{ route('location.search') }}" method="GET" class="d-flex">
-            @csrf
             <input type="text" name="query" class="form-control me-2" placeholder="Search location..."
                    value="{{request('query')}}">
             <button class="btn btn-primary" type="submit">Search</button>
@@ -66,21 +65,22 @@
     {{--Locations--}}
     <h1 class="text-center mb-4">Your locations:</h1>
     <div class="row justify-content-center">
-{{--        @forelse($locations as $location)--}}
+        @forelse($locations as $location)
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card location-card">
                     <div class="card-body text-center">
-{{--                        <h5 class="card-title">{{ $location->name }}</h5>--}}
+                        <h5 class="card-title">{{ $location->name }}</h5>
                         <p class="class-text">
-{{--                            Temperature: {{ $weatherData[$location->name]['current_weather']['temperature'] }} °C--}}
+                            Temperature: {{ $weatherData[$location->name]['current_weather']['temperature'] }} °C
                         </p>
-{{--                        <a href="{{route('location.delete', $location->id)}}" class="btn btn-danger mt-3">Delete</a>--}}
+                        <a href="{{route('location.delete', $location->id)}}" class="btn btn-danger mt-3">Delete</a>
+                        <a href="{{route('location.details', $location->id)}}" class="btn btn-info mt-3">Details</a>
                     </div>
                 </div>
             </div>
-{{--        @empty--}}
+        @empty
             <p>You have no locations added.</p>
-{{--        @endforelse--}}
+        @endforelse
     </div>
 
     {{--Add Location--}}

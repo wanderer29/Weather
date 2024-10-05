@@ -21,6 +21,6 @@ Route::post('/login', [UserController::class, 'login'])->name('user.login');
 Route::get('/home', [HomeController::class, 'showHome'])->name('home');
 Route::post('/location', [HomeController::class, 'addLocation'])->name('location.add');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+
 Route::get('/location/{location}', [HomeController::class, 'deleteLocation'])->name('location.delete');
-
-
+Route::get('/location/{id}/details', [WeatherController::class, 'showLocationDetails'])->name('location.details');
