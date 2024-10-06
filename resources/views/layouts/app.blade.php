@@ -9,30 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
-        .search-bar {
-            max-width: 400px;
-            margin: 0 auto 30px;
-        }
-
-        .location-card {
-            margin-bottom: 30px;
-        }
-
-        .card-title {
-            font-weight: bold;
-        }
-
-        .add-location {
-            margin-top: 50px;
-        }
-
-        .btn-logout {
-            text-align: right;
-            margin-bottom: 20px;
-            margin-top: 15px;
-            top: 20px;
-            right: 20px;
-        }
+        @yield('styles')
     </style>
 </head>
 <body>

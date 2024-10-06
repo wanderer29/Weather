@@ -3,6 +3,33 @@
 
 @section('title', 'Home page')
 
+@section('styles')
+    .search-bar {
+    max-width: 400px;
+    margin: 0 auto 30px;
+    }
+
+    .location-card {
+    margin-bottom: 30px;
+    }
+
+    .card-title {
+    font-weight: bold;
+    }
+
+    .add-location {
+    margin-top: 50px;
+    }
+
+    .btn-logout {
+    text-align: right;
+    margin-bottom: 20px;
+    margin-top: 15px;
+    top: 20px;
+    right: 20px;
+    }
+@endsection
+
 @section('content')
     <div class="container mt-4">
 
