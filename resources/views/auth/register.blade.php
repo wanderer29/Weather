@@ -1,19 +1,10 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Registration</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
-<body>
-<header class="text-center bg-primary text-white p-3">
-    <h1>Registration</h1>
-</header>
-<div class="container mt-5">
+@extends('layouts.app')
+
+@section('title', 'Registration')
+
+@section('header_title', 'Registration')
+
+@section('content')
     <div class="row justify-content-center">
         <div class="card col-md-6">
             <div class="card-header">
@@ -36,8 +27,7 @@
                     <div class="mb-3">
                         <label class="form-label" for="confirm_password">Confirm password:</label>
                         <input class="form-control" type="password" id="password_confirmation"
-                               name="password_confirmation"
-                               required>
+                               name="password_confirmation" required>
                     </div>
 
                     <button type="submit" class="btn btn-primary">
@@ -64,29 +54,8 @@
             </div>
         </div>
     </div>
-</div>
+@endsection
 
-
-<script>
-    function checkPasswords() {
-        var password = document.getElementById("password").value;
-        var confirmPassword = document.getElementById("password_confirmation").value;
-        if (password !== confirmPassword) {
-            resetPasswords();
-            alert("Passwords do not match!");
-            return false;
-        }
-        return true;
-    }
-
-    function resetPasswords() {
-        document.getElementById("password").value = "";
-        document.getElementById("password_confirmation").value = "";
-    }
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-</body>
-</html>
+@push('scripts')
+    <script src="{{ asset('js/register.js' )}}"
+@endpush

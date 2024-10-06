@@ -23,7 +23,7 @@ class PageController extends Controller
 
     public function showRegistration(): RedirectResponse|View
     {
-        return view('registration_page');
+        return view('auth.register');
     }
 
     public function showHome(Request $request): View|RedirectResponse
