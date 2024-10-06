@@ -18,7 +18,7 @@ class PageController extends Controller
 
     public function showLogin(): RedirectResponse|View
     {
-        return view('authorization_page');
+        return view('auth.login');
     }
 
     public function showRegistration(): RedirectResponse|View
