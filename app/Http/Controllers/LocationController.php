@@ -48,7 +48,7 @@ class LocationController extends Controller
         $locations = Location::where('user_id', $user->id)->where('name', 'LIKE', '%' . $query . '%')->get();
         $weatherData = $this->getWeatherForecastForLocations($locations);
 
-        return view('home_page', [
+        return view('home', [
             'userLogin' => $user->login,
             'locations' => $locations,
             'weatherData' => $weatherData

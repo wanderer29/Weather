@@ -33,7 +33,7 @@ class PageController extends Controller
         $locations = $locationController->getUserLocations();
         $weatherData = $locationController->getWeatherForecastForLocations($locations);
 
-        return view('home_page', [
+        return view('home', [
             'userLogin' => $userLogin,
             'locations' => $locations,
             'weatherData' => $weatherData,

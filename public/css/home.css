@@ -16,7 +16,9 @@
 }
 
 .btn-logout {
-    position: absolute;
+    text-align: right;
+    margin-bottom: 20px;
+    margin-top: 15px;
     top: 20px;
     right: 20px;
 }
