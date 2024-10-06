@@ -16,6 +16,11 @@ class OpenMeteoService
         $this->client = new Client();
     }
 
+    public function setClient(Client $client): void
+    {
+        $this->client = $client;
+    }
+
     public function getWeatherForecast(float $latitude, float $longitude): array|null
     {
         try {
