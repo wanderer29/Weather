@@ -25,7 +25,6 @@ class UserController extends Controller
     public function login(LoginRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $user = $this->findUser($data);
 
         //If Authorization success
         if (Auth::attempt($data)) {
