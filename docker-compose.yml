@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
     php:
-#        image: php:8.1-fpm
+        image: php:8.1-fpm
         build:
             dockerfile: docker/php/Dockerfile
         user: "1000:1000"
