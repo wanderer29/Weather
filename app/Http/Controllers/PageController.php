@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Location;
+use App\Services\LocationService;
 use App\Services\OpenMeteoService;
 use GuzzleHttp\Client;
 use Illuminate\Http\RedirectResponse;
@@ -32,9 +33,10 @@ class PageController extends Controller
         $userLogin = Auth::user()->login;
         $client = new Client();
         $openMeteoService = new OpenMeteoService($client);
-        $locationController = new LocationController($openMeteoService);
-        $locations = $locationController->getUserLocations();
-        $weatherData = $locationController->getWeatherForecastForLocations($locations);
+        $locationService = new LocationService($openMeteoService);
+        $locationController = new LocationController($locationService);
+        $locations = $locationService->getUserLocations();
+        $weatherData = $locationService->getWeatherForecastForLocations($locations);
 
         return view('home', [
             'userLogin' => $userLogin,
