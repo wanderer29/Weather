@@ -10,6 +10,13 @@ class OpenMeteoService
 {
     protected string $baseUrl = 'https://api.open-meteo.com/v1/forecast';
 
+    protected const WEATHER_CLEAR = 0;
+    public const WEATHER_PARTLY_CLOUDY = 1;
+    public const WEATHER_CLOUDY = 2;
+    public const WEATHER_OVERCAST = 3;
+    public const WEATHER_FOG = 45;
+    public const WEATHER_RAIN = 61;
+
     public function __construct(protected Client $client)
     {
     }
@@ -42,12 +49,12 @@ class OpenMeteoService
     private function getWeatherDescription(int $weatherCode): string
     {
         return match ($weatherCode) {
-            0 => 'Clear',
-            1 => 'Partly Cloudy',
-            2 => 'Cloudy',
-            3 => 'Overcast',
-            45 => 'Fog',
-            61 => 'Rain',
+            self::WEATHER_CLEAR => 'Clear',
+            self::WEATHER_PARTLY_CLOUDY => 'Partly Cloudy',
+            self::WEATHER_CLOUDY => 'Cloudy',
+            self::WEATHER_OVERCAST => 'Overcast',
+            self::WEATHER_FOG => 'Fog',
+            self::WEATHER_RAIN => 'Rain',
             default => 'Unknown',
         };
     }
