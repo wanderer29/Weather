@@ -34,7 +34,6 @@ class PageController extends Controller
         $client = new Client();
         $openMeteoService = new OpenMeteoService($client);
         $locationService = new LocationService($openMeteoService);
-        $locationController = new LocationController($locationService);
         $locations = $locationService->getUserLocations();
         $weatherData = $locationService->getWeatherForecastForLocations($locations);
 
@@ -47,9 +46,11 @@ class PageController extends Controller
 
     public function showLocationDetails(int $locationId): View
     {
-        $locationController = new LocationController();
-        $location = $locationController->getLocation($locationId);
-        $forecast = $locationController->getWeatherForecastForLocation($location);
+        $client = new Client();
+        $openMeteoService = new OpenMeteoService($client);
+        $locationService = new LocationService($openMeteoService);
+        $location = $locationService->getLocation($locationId);
+        $forecast = $locationService->getWeatherForecastForLocation($location);
 
         return view('location_details', [
             'location' => $location,

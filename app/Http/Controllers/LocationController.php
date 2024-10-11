@@ -52,6 +52,17 @@ class LocationController extends Controller
         ]);
     }
 
+    public function searchLocations(Request $request): View
+    {
+        $data = $this->locationService->searchLocationsForUser($request);
+
+        return view('home', [
+            'userLogin' => $data['user']->login,
+            'locations' => $data['locations'],
+            'weatherData' => $data['weatherData'],
+        ]);
+    }
+
 
 
 }

@@ -19,20 +19,6 @@ class LocationService
     {
     }
 
-    public function searchLocations(Request $request): View
-    {
-        $query = $request->input('query');
-        $user = Auth::user();
-        $locations = Location::where('user_id', $user->id)->where('name', 'LIKE', '%' . $query . '%')->get();
-        $weatherData = $this->getWeatherForecastForLocations($locations);
-
-        return view('home', [
-            'userLogin' => $user->login,
-            'locations' => $locations,
-            'weatherData' => $weatherData
-        ]);
-    }
-
     public function getLocation(int $locationId): Location
     {
         return Location::where('id', $locationId)->where('user_id', Auth::id())->first();
@@ -57,5 +43,19 @@ class LocationService
             $weatherData[$location->name] = $weather;
         }
         return $weatherData;
+    }
+
+    public function searchLocationsForUser(Request $request) : array
+    {
+        $query = $request->input('query');
+        $user = Auth::user();
+        $locations = Location::where('user_id', $user->id)->where('name', 'LIKE', '%' . $query . '%')->get();
+        $weatherData = $this->getWeatherForecastForLocations($locations);
+
+        return [
+            'user' => $user,
+            'locations' => $locations,
+            'weatherData' => $weatherData,
+        ];
     }
 }
