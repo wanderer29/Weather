@@ -1,3 +1,4 @@
+@php use App\Models\Location; @endphp
 
 @extends('layouts.app')
 
@@ -52,9 +53,15 @@
         </div>
 
         {{--Locations--}}
+        @php
+            /** @var Location[] $locations */
+            /** @var array $weatherData */
+        @endphp
+
         <h1 class="text-center mb-4">Your locations:</h1>
         <div class="row justify-content-center">
             @forelse($locations as $location)
+                @php /** @var Location $location */ @endphp
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="card location-card">
                         <div class="card-body text-center">
@@ -66,7 +73,9 @@
                                 Weather: {{ $weatherData[$location->name]['current_weather_description'] }}
                             </p>
                             <p class="class-text">
-                                Wind Speed: {{ number_format($weatherData[$location->name]['current_weather']['windspeed'] / 3.6, 1) }} m/s
+                                Wind
+                                Speed: {{ number_format($weatherData[$location->name]['current_weather']['windspeed'] / 3.6, 1) }}
+                                m/s
                             </p>
                             <a href="{{route('location.delete', $location->id)}}" class="btn btn-danger mt-3">Delete</a>
                             <a href="{{route('location.details', $location->id)}}" class="btn btn-info mt-3">Details</a>

@@ -1,3 +1,4 @@
+@php use App\Models\Location; @endphp
 @extends('layouts.app')
 
 @section('title', 'Weather in ' . $location->name)
@@ -17,6 +18,12 @@
 @endsection
 
 @section('content')
+    @php
+        /** @var Location $location */
+        /** @var array $forecast */
+    @endphp
+
+
     <a href="{{ route('home') }}" class="btn btn-primary mb-4">Back to Home</a>
 
     <h1 class="text-center mb-4">Weather Details for {{ $location->name }}</h1>
