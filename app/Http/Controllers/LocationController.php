@@ -13,11 +13,10 @@ use Illuminate\View\View;
 
 class LocationController extends Controller
 {
-    protected OpenMeteoService $openMeteoService;
-
-    public function __construct()
+    public function __construct(
+        protected OpenMeteoService $openMeteoService,
+    )
     {
-        $this->openMeteoService = new OpenMeteoService();
     }
 
     public function addLocation(LocationRequest $request): RedirectResponse

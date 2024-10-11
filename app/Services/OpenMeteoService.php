@@ -8,12 +8,10 @@ use Illuminate\Support\Facades\Log;
 
 class OpenMeteoService
 {
-    protected $client;
-    protected $baseUrl = 'https://api.open-meteo.com/v1/forecast';
+    protected string $baseUrl = 'https://api.open-meteo.com/v1/forecast';
 
-    public function __construct()
+    public function __construct(protected Client $client)
     {
-        $this->client = new Client();
     }
 
     public function setClient(Client $client): void
@@ -32,11 +30,9 @@ class OpenMeteoService
                 $data = json_decode($response->getBody(), true);
                 $data = $this->setCurrentWeatherDescription($data);
                 $data = $this->setDailyWeatherDescription($data);
-
-                return $data;
             }
 
-            return null;
+            return $data;
         } catch (GuzzleException $e) {
             Log::error('Error fetching weather data: ' . $e->getMessage());
             return null;
