@@ -103,9 +103,25 @@
                 <label for="longitude" class="form-label">Longitude</label>
                 <input type="text" class="form-control" id="longitude" name="longitude" required>
             </div>
-            <button type="submit" class="btn btn-primary">Add Location</button>
+            <button type="submit" class="btn btn-primary mb-3">Add Location</button>
         </form>
     </div>
+
+    {{--Validation errors--}}
+    @php
+        /** @var Error[] $errors */
+    @endphp
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
 @endsection
 
 @push('scripts')
