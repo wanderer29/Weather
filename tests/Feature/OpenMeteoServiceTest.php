@@ -28,8 +28,7 @@ class OpenMeteoServiceTest extends TestCase
                 'daily' => ['weathercode' => [2, 3]],
             ])));
 
-        $openMeteoService = new OpenMeteoService();
-        $openMeteoService->setClient($mockClient);
+        $openMeteoService = new OpenMeteoService($mockClient);
 
         $result = $openMeteoService->getWeatherForecast(12, 12);
 
@@ -46,8 +45,7 @@ class OpenMeteoServiceTest extends TestCase
             ->with('https://api.open-meteo.com/v1/forecast', Mockery::any())
             ->andThrow(new RequestException('Error connect to server', Mockery::mock(RequestInterface::class)));
 
-        $openMeteoService = new OpenMeteoService();
-        $openMeteoService->setClient($mockClient);
+        $openMeteoService = new OpenMeteoService($mockClient);
 
         $result = $openMeteoService->getWeatherForecast(12, 12);
 
