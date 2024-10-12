@@ -25,11 +25,6 @@ class LocationService
         return Location::where('id', $locationId)->where('user_id', Auth::id())->first();
     }
 
-    public function getUserLocations(): Collection
-    {
-        return Location::where('user_id', Auth::id())->get();
-    }
-
     public function getUserLocationsPaginated(int $perPage = 7): LengthAwarePaginator
     {
         return Location::where('user_id', Auth::id())->paginate($perPage);
