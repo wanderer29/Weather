@@ -34,7 +34,7 @@ class PageController extends Controller
         $client = new Client();
         $openMeteoService = new OpenMeteoService($client);
         $locationService = new LocationService($openMeteoService);
-        $locations = $locationService->getUserLocations();
+        $locations = $locationService->getUserLocationsPaginated();
         $weatherData = $locationService->getWeatherForecastForLocations($locations);
 
         return view('home', [

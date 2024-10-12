@@ -37,9 +37,10 @@ class OpenMeteoService
                 $data = json_decode($response->getBody(), true);
                 $data = $this->setCurrentWeatherDescription($data);
                 $data = $this->setDailyWeatherDescription($data);
+                return $data;
             }
 
-            return $data;
+            return null;
         } catch (GuzzleException $e) {
             Log::error('Error fetching weather data: ' . $e->getMessage());
             return null;
