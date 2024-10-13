@@ -1,12 +1,12 @@
 FROM php:8.2-fpm
 
 RUN rm -f /etc/apt/sources.list.d/* && \
-    echo 'deb http://mirrors.linode.com/debian/ bookworm main contrib non-free' > /etc/apt/so>
-    echo 'deb-src http://mirrors.linode.com/debian/ bookworm main contrib non-free' >> /etc/a>
-    echo 'deb http://mirrors.linode.com/debian-security/ bookworm-security main contrib non-f>
-    echo 'deb-src http://mirrors.linode.com/debian-security/ bookworm-security main contrib n>
-    echo 'deb http://mirrors.linode.com/debian/ bookworm-updates main contrib non-free' >> /e>
-    echo 'deb-src http://mirrors.linode.com/debian/ bookworm-updates main contrib non-free' >>
+        echo 'deb http://mirrors.linode.com/debian/ bookworm main contrib non-free' > /etc/apt/sources.list && \
+        echo 'deb-src http://mirrors.linode.com/debian/ bookworm main contrib non-free' >> /etc/apt/sources.list && \
+        echo 'deb http://mirrors.linode.com/debian-security/ bookworm-security main contrib non-free' >> /etc/apt/sources.list && \
+        echo 'deb-src http://mirrors.linode.com/debian-security/ bookworm-security main contrib non-free' >> /etc/apt/sources.list && \
+        echo 'deb http://mirrors.linode.com/debian/ bookworm-updates main contrib non-free' >> /etc/apt/sources.list && \
+        echo 'deb-src http://mirrors.linode.com/debian/ bookworm-updates main contrib non-free' >> /etc/apt/sources.list && \
     apt-get update && \
     apt-get install -y \
     libzip-dev \
