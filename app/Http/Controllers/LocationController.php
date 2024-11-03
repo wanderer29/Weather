@@ -31,7 +31,7 @@ class LocationController extends Controller
     public function deleteLocation(int $locationId): RedirectResponse
     {
         $user = Auth::user();
-        $location = $this->getLocation($locationId);
+        $location = $this->locationService->getLocation($locationId);
 
         if ($location) {
             $location->delete();
