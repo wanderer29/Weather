@@ -65,7 +65,7 @@ Working with locations:
   - registration fails when password confirmation does not match
 
 ## Deploy
-The application is now available at: 193.227.241.68:8000/
+The application is now available at: http://79.174.95.163:8000
 
 ## For local launch:
 
